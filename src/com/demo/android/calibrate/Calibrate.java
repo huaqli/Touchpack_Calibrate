@@ -70,9 +70,9 @@ public class Calibrate extends Activity
 
             if (Build.VERSION.SDK_INT > 16)
             {
-                cmd = "sh am startservice --user 0 -n com.android.systemui/.SystemUIService";
+                cmd = "am startservice --user 0 -n com.android.systemui/.SystemUIService";
             } else {
-                cmd = "sh am startservice -n com.android.systemui/.SystemUIService";
+                cmd = "am startservice -n com.android.systemui/.SystemUIService";
             }
             su = Runtime.getRuntime().exec(cmd);
             su.waitFor();
@@ -85,11 +85,8 @@ public class Calibrate extends Activity
 
     private void SetDrawPoint()
     {
-        Log.e("111", "SetDrawPoint");
         this.mDrawView.count = this.mDrawView.GetCalPoint();
-        Log.e("111", "count=" + this.mDrawView.count);
         this.active = this.mDrawView.CaliFunc();
-        Log.e("111", "active=" + this.active);
         
         if (this.active == 11) {
             this.mDrawView.pntCircle.setColor(-256);
@@ -130,7 +127,8 @@ public class Calibrate extends Activity
         localEditor.putInt("CalibFlag", 1);
         localEditor.commit();
         MessageBox("Calibration is done");
-        finish();
+        this.finish();
+        //System.exit(0);
     }
 
     private void debug(String paramString)
@@ -157,7 +155,7 @@ public class Calibrate extends Activity
     {
         int i = this.mDrawView.InitTouch();
         String str = String.valueOf(i);
-        Log.e(TAG, "result of InitTouch is: " + str);
+        //Log.e(TAG, "result of InitTouch is: " + str);
         debug(str);
         if (i != 1)
         {
@@ -230,16 +228,15 @@ public class Calibrate extends Activity
     {
         super.onCreate(paramBundle);
         requestWindowFeature(1);
+
         DisableSystemUI();
         this.mDrawView = new DrawView(this);
         setContentView(this.mDrawView);
         Init();
     }
 
-    // protected void onDestroy()
-    protected void onStop()
+    protected void onDestroy()
     {
-        Log.e("111", "aaaaaaaaaaaaaaa");
         super.onDestroy();
         EnableSystemUI();
         this.mDrawView.ResetController();

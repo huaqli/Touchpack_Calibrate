@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.View;
 
 public class DrawView extends View
@@ -33,7 +32,6 @@ public class DrawView extends View
     int j = this.Default9Pnts[paramInt][1];
     paramPaint.setStrokeWidth(3.0F);
     Point localPoint = new Point(i * (int)this.screenWidth / 2048, j * (int)this.screenHeight / 2048);
-    Log.e("111", "localpPoint="+localPoint.toString());
     paramPaint.setStyle(Paint.Style.STROKE);
     paramCanvas.drawLine(-20 + localPoint.x, localPoint.y, 20 + localPoint.x, localPoint.y, paramPaint);
     paramCanvas.drawLine(localPoint.x, -20 + localPoint.y, localPoint.x, 20 + localPoint.y, paramPaint);
